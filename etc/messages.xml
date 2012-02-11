@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MessageCollection>
+
+	<Plugin>
+		<ShortDescription>Findbugs plugin for Android</ShortDescription>
+		<Details>
+			<![CDATA[
+			<p>
+			This plugin consist of FindBugs detectors for Android coding
+			</p>
+			]]>
+		</Details>
+	</Plugin>
+
+	<Detector class="jp.f.dev.findbugs.detect.android.FindAndroidStream">
+		<Details>
+<![CDATA[
+<p>Detects resource handling mistake of Android specific.</p>
+<p>Note that this detector is beta version</p>
+]]>
+		</Details>
+	</Detector>
+
+	<BugPattern type="ANDROID_UNCLOSED_CURSOR">
+		<ShortDescription>Un-closed Cursor instance of Android
+		</ShortDescription>
+		<LongDescription>Un-closed Cursor instance of Android
+		</LongDescription>
+		<Details>
+<![CDATA[
+<p>Cursor instance of Android which is instantiated by ContentResolver::query need to be closed after usage by Cursor::close. This Cursor may not be closed.</p>
+<p>Note that this detector is beta version</p>
+]]>
+		</Details>
+	</BugPattern>
+	
+	<BugCode abbrev="AUCCUR">Bad Cursor handling</BugCode>
+
+	<BugPattern type="ANDROID_UNCLOSED_RESOURCE">
+		<ShortDescription>Un-closed stream of Android
+		</ShortDescription>
+		<LongDescription>Un-closed stream of Android
+		</LongDescription>
+		<Details>
+<![CDATA[
+<p>FileStream may not be closed.</p>
+<p>Note that this detector is beta version</p>
+]]>
+		</Details>
+	</BugPattern>
+	<BugCode abbrev="AUCRSC">Bad file stream handling</BugCode>
+	
+</MessageCollection>
