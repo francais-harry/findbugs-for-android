@@ -77,8 +77,8 @@ public class FindAndroidStream extends
      */
     static final ObjectType[] streamBaseList = {
             ObjectTypeFactory.getInstance("android.database.Cursor"),
-//            ObjectTypeFactory.getInstance("java.io.InputStream"),
-//            ObjectTypeFactory.getInstance("java.io.OutputStream")
+            ObjectTypeFactory.getInstance("java.io.FileInputStream"),
+            ObjectTypeFactory.getInstance("java.io.FileOutputStream")
             };
 
     static {
@@ -91,20 +91,17 @@ public class FindAndroidStream extends
                         "query",
                         "(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;",
                         "ANDROID_UNCLOSED_CURSOR"));
-//        streamFactoryCollection.add(new IOStreamFactory("java.io.OutputStream", new String[0], "ANDROID_UNCLOSED_RESOURCE"));
-//        streamFactoryCollection
-//                .add(new MethodReturnValueStreamFactory(
-//                        "android.content.Context",
-//                        "openFileOutput",
-//                        "(Ljava/lang/String;I)Ljava/io/FileOutputStream;",
-//                        "ANDROID_UNCLOSED_RESOURCE"));
-//        streamFactoryCollection.add(new IOStreamFactory("java.io.InputStream", new String[0], "ANDROID_UNCLOSED_RESOURCE"));
-//        streamFactoryCollection
-//                .add(new MethodReturnValueStreamFactory(
-//                        "android.content.Context",
-//                        "openFileInput",
-//                        "(Ljava/lang/String;)Ljava/io/FileInputStream;",
-//                        "ANDROID_UNCLOSED_RESOURCE"));
+
+        // TODO: need to investigate unstable behavior of it.
+        // Why this is not work via command line but works well from Eclipse?
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.Context", "openFileInput",
+                "(Ljava/lang/String;)Ljava/io/FileInputStream;",
+                "ANDROID_UNCLOSED_RESOURCE"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.Context", "openFileOutput",
+                "(Ljava/lang/String;I)Ljava/io/FileOutputStream;",
+                "ANDROID_UNCLOSED_RESOURCE"));
 
         streamFactoryList = streamFactoryCollection
                 .toArray(new StreamFactory[streamFactoryCollection.size()]);
@@ -178,6 +175,7 @@ public class FindAndroidStream extends
         BitSet bytecodeSet = classContext.getBytecodeSet(method);
         if (DEBUG) { System.out.println("FindAndroidStream prescreen bytecodeSet = " + bytecodeSet); }
         if (DEBUG) { System.out.println("FindAndroidStream prescreen method = " + method); }
+
         if (bytecodeSet == null)
             return false;
          return bytecodeSet.get(Constants.NEW)
