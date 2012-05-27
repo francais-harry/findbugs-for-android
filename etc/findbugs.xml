@@ -3,9 +3,9 @@
 	pluginid="jp.f.dev.findbugs.detect.android"
 	provider="f.dev">
 	<Detector class="jp.f.dev.findbugs.detect.android.FindAndroidStream"
-		speed="moderate" reports="ANDROID_UNCLOSED_CURSOR,ANDROID_UNCLOSED_RESOURCE" />
+		speed="slow" reports="ANDROID_UNCLOSED_CURSOR,ANDROID_UNCLOSED_RESOURCE" />
 	<BugPattern abbrev="AUCCUR" type="ANDROID_UNCLOSED_CURSOR"
-		category="CORRECTNESS" />
+		category="BAD_PRACTICE" />
 	<BugPattern abbrev="AUCRSC" type="ANDROID_UNCLOSED_RESOURCE"
-		category="CORRECTNESS" />	
+		category="BAD_PRACTICE" />
 </FindbugsPlugin>

@@ -62,8 +62,8 @@ public class FindAndroidStream extends
         ResourceTrackingDetector<Stream, StreamResourceTracker> implements
         StatelessDetector {
 
-    private static final boolean DEBUG = false;
-    
+    private static final boolean DEBUG = SystemProperties.getBoolean("af.debug");
+
     static final boolean IGNORE_WRAPPED_UNINTERESTING_STREAMS = !SystemProperties.getBoolean("fos.allowWUS");
 
     /*
@@ -159,7 +159,7 @@ public class FindAndroidStream extends
     public FindAndroidStream(BugReporter bugReporter) {
         super(bugReporter);
         this.potentialOpenStreamList = new LinkedList<PotentialOpenStream>();
-        if (DEBUG) { System.out.println("FindCursorStream Constructor"); }
+        if (DEBUG) { System.out.println("FindAndroidStream Constructor"); }
     }
 
     @Override
@@ -174,10 +174,10 @@ public class FindAndroidStream extends
     @Override
     public boolean prescreen(ClassContext classContext, Method method,
             boolean mightClose) {
-        if (DEBUG) { System.out.println("FindCursorStream prescreen in"); }
+        if (DEBUG) { System.out.println("FindAndroidStream prescreen in"); }
         BitSet bytecodeSet = classContext.getBytecodeSet(method);
-        if (DEBUG) { System.out.println("FindCursorStream prescreen bytecodeSet = " + bytecodeSet); }
-        if (DEBUG) { System.out.println("FindCursorStream prescreen method = " + method); }
+        if (DEBUG) { System.out.println("FindAndroidStream prescreen bytecodeSet = " + bytecodeSet); }
+        if (DEBUG) { System.out.println("FindAndroidStream prescreen method = " + method); }
         if (bytecodeSet == null)
             return false;
          return bytecodeSet.get(Constants.NEW)
@@ -191,8 +191,8 @@ public class FindAndroidStream extends
     public void analyzeMethod(ClassContext classContext, Method method, StreamResourceTracker resourceTracker,
             ResourceCollection<Stream> resourceCollection) throws CFGBuilderException, DataflowAnalysisException {
 
-        if (DEBUG) { System.out.println("FindCursorStream analyzeMethod in, method: " + method); }
-        if (DEBUG) { System.out.println("FindCursorStream analyzeMethod in, potentialOpenStreamList: " + potentialOpenStreamList.size()); }
+        if (DEBUG) { System.out.println("FindAndroidStream analyzeMethod in, method: " + method); }
+        if (DEBUG) { System.out.println("FindAndroidStream analyzeMethod in, potentialOpenStreamList: " + potentialOpenStreamList.size()); }
 
         // TODO: Need to improve potentialOpenStreamList handling. Sometimes logic throw away tracking resource.
         potentialOpenStreamList.clear();
@@ -218,7 +218,7 @@ public class FindAndroidStream extends
                     
                     for (ObjectType streamBase : streamBaseList) {
                         if (Hierarchy.isSubtype(objectType, streamBase)) {
-                            if (DEBUG) { System.out.println("FindCursorStream analyzeMethod OK, found a parameter that is a resource. objectType: " + objectType); }
+                            if (DEBUG) { System.out.println("FindAndroidStream analyzeMethod OK, found a parameter that is a resource. objectType: " + objectType); }
                             // OK, found a parameter that is a resource.
                             // Create a Stream object to represent it.
                             // The Stream will be uninteresting, so it will
@@ -297,7 +297,7 @@ public class FindAndroidStream extends
 
             String sourceFile = javaClass.getSourceFileName();
             String leakClass = stream.getStreamBase();
-            if (DEBUG) { System.out.println("FindCursorStream analyzeMethod sourceFile: " + sourceFile + " leakClass: " + leakClass); }
+            if (DEBUG) { System.out.println("FindAndroidStream analyzeMethod sourceFile: " + sourceFile + " leakClass: " + leakClass); }
             if (isMainMethod(method) && (leakClass.contains("InputStream") || leakClass.contains("Reader")))
                 return;
 
@@ -306,7 +306,7 @@ public class FindAndroidStream extends
                     .describe(TypeAnnotation.CLOSEIT_ROLE), SourceLineAnnotation.fromVisitedInstruction(classContext, methodGen,
                     sourceFile, stream.getLocation().getHandle()));
         }
-        if (DEBUG) { System.out.println("FindCursorStream analyzeMethod out"); }
+        if (DEBUG) { System.out.println("FindAndroidStream analyzeMethod out"); }
     }
 
     public static boolean isMainMethod(Method method) {
@@ -316,7 +316,7 @@ public class FindAndroidStream extends
     @Override
     public StreamResourceTracker getResourceTracker(ClassContext classContext,
             Method method) {
-        if (DEBUG) { System.out.println("FindCursorStream getResourceTracker in"); }
+        if (DEBUG) { System.out.println("FindAndroidStream getResourceTracker in"); }
         return new StreamResourceTracker(streamFactoryList, bugReporter);
     }
 
@@ -327,11 +327,11 @@ public class FindAndroidStream extends
             CFG cfg,
             Dataflow<ResourceValueFrame, ResourceValueAnalysis<Stream>> dataflow,
             Stream stream) {
-        if (DEBUG) { System.out.println("FindCursorStream inspectResult in"); }
+        if (DEBUG) { System.out.println("FindAndroidStream inspectResult in"); }
         ResourceValueFrame exitFrame = dataflow.getResultFact(cfg.getExit());
 
         int exitStatus = exitFrame.getStatus();
-        if (DEBUG) { System.out.println("FindCursorStream inspectResult exitStatus: " + exitStatus); }
+        if (DEBUG) { System.out.println("FindAndroidStream inspectResult exitStatus: " + exitStatus); }
         if (exitStatus == ResourceValueFrame.OPEN || exitStatus == ResourceValueFrame.OPEN_ON_EXCEPTION_PATH) {
 
             // FIXME: Stream object should be queried for the
@@ -343,7 +343,7 @@ public class FindAndroidStream extends
                 bugType += "_EXCEPTION_PATH";
                 priority = LOW_PRIORITY;
             }
-            if (DEBUG) { System.out.println("FindCursorStream inspectResult add stream: " + stream); }
+            if (DEBUG) { System.out.println("FindAndroidStream inspectResult add stream: " + stream); }
 
             potentialOpenStreamList.add(new PotentialOpenStream(bugType, priority, stream));
         } else if (exitStatus == ResourceValueFrame.CLOSED) {
@@ -352,7 +352,7 @@ public class FindAndroidStream extends
             // as having been closed.
             stream.setClosed();
         }
-        if (DEBUG) { System.out.println("FindCursorStream inspectResult out"); }
+        if (DEBUG) { System.out.println("FindAndroidStream inspectResult out"); }
     }
 
 }

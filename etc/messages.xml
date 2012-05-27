@@ -28,7 +28,7 @@
 		</LongDescription>
 		<Details>
 <![CDATA[
-<p>Cursor instance of Android which is instantiated by ContentResolver::query need to be closed after usage by Cursor::close. This Cursor may not be closed.</p>
+<p>Cursor instance of Android which is instantiated by ContentResolver::query need to be closed after use by Cursor::close. This Cursor may not be closed.</p>
 <p>Note that this detector is beta version</p>
 ]]>
 		</Details>
