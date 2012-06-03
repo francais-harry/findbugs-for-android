@@ -28,7 +28,7 @@
 		</LongDescription>
 		<Details>
 <![CDATA[
-<p>Cursor instance of Android which is instantiated by ContentResolver::query need to be closed after use by Cursor::close. This Cursor may not be closed.</p>
+<p><code>Cursor</code> instance of Android which is instantiated by <code>ContentResolver::query</code> need to be closed after use by <code>Cursor::close</code>. This Cursor may not be closed.</p>
 <p>Note that this detector is beta version</p>
 ]]>
 		</Details>
@@ -37,13 +37,13 @@
 	<BugCode abbrev="AUCCUR">Bad Cursor handling</BugCode>
 
 	<BugPattern type="ANDROID_UNCLOSED_RESOURCE">
-		<ShortDescription>Un-closed stream of Android
+		<ShortDescription>Un-closed file stream of Android
 		</ShortDescription>
-		<LongDescription>Un-closed stream of Android
+		<LongDescription>Un-closed file stream of Android
 		</LongDescription>
 		<Details>
 <![CDATA[
-<p>FileStream may not be closed.</p>
+<p>File stream may not be closed. Need to be closed after use.</p>
 <p>Note that this detector is beta version</p>
 ]]>
 		</Details>

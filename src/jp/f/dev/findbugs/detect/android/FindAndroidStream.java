@@ -92,8 +92,6 @@ public class FindAndroidStream extends
                         "(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;",
                         "ANDROID_UNCLOSED_CURSOR"));
 
-        // TODO: need to investigate unstable behavior of it.
-        // Why this is not work via command line but works well from Eclipse?
         streamFactoryCollection.add(new MethodReturnValueStreamFactory(
                 "android.content.Context", "openFileInput",
                 "(Ljava/lang/String;)Ljava/io/FileInputStream;",

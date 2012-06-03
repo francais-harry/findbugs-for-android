@@ -4,6 +4,9 @@
         name="FindBugs.home"
         value="C:\Program Files\eclipse\plugins\edu.umd.cs.findbugs.plugin.eclipse_2.0.0.20111221" />
     <property
+        name="FindbugsSrc1_3_9.home"
+        value="C:\Documents and Settings\h.shoji\workspace\findbugs-1.3.9-rc1\findbugs-1.3.9-rc1"/>
+    <property
         name="FindbugsSrc2_0.home"
         value="C:\Documents and Settings\h.shoji\workspace\findbugs-2.0.0-source\findbugs-2.0.0"/>
     <target name="build">
@@ -13,6 +16,7 @@
             <zipfileset dir="etc" includes="*.xml" prefix=""/>
         </jar>
         <copy file="AndroidFindbugs.jar" todir="${FindBugs.home}/plugin"/>
+        <copy file="AndroidFindbugs.jar" todir="${FindbugsSrc1_3_9.home}/plugin"/>
         <copy file="AndroidFindbugs.jar" todir="${FindbugsSrc2_0.home}/plugin"/>
     </target>
 </project>
