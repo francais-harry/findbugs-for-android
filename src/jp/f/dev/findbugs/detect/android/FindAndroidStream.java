@@ -95,11 +95,11 @@ public class FindAndroidStream extends
         streamFactoryCollection.add(new MethodReturnValueStreamFactory(
                 "android.content.Context", "openFileInput",
                 "(Ljava/lang/String;)Ljava/io/FileInputStream;",
-                "ANDROID_UNCLOSED_RESOURCE"));
+                "ANDROID_OPEN_STREAM"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory(
                 "android.content.Context", "openFileOutput",
                 "(Ljava/lang/String;I)Ljava/io/FileOutputStream;",
-                "ANDROID_UNCLOSED_RESOURCE"));
+                "ANDROID_OPEN_STREAM"));
 
         streamFactoryList = streamFactoryCollection
                 .toArray(new StreamFactory[streamFactoryCollection.size()]);

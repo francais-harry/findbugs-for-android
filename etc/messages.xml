@@ -36,7 +36,7 @@
 	
 	<BugCode abbrev="AUCCUR">Bad Cursor handling</BugCode>
 
-	<BugPattern type="ANDROID_UNCLOSED_RESOURCE">
+	<BugPattern type="ANDROID_OPEN_STREAM">
 		<ShortDescription>Un-closed file stream of Android
 		</ShortDescription>
 		<LongDescription>Un-closed file stream of Android
@@ -48,6 +48,6 @@
 ]]>
 		</Details>
 	</BugPattern>
-	<BugCode abbrev="AUCRSC">Bad file stream handling</BugCode>
+	<BugCode abbrev="AOS">Bad file stream handling</BugCode>
 	
 </MessageCollection>
