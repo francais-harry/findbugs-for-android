@@ -2,7 +2,7 @@
 <project>
     <property
         name="FindBugs.home"
-        value="C:\Program Files\eclipse\plugins\edu.umd.cs.findbugs.plugin.eclipse_2.0.0.20111221" />
+        value="C:\Program Files\eclipse\plugins\edu.umd.cs.findbugs.plugin.eclipse_2.0.1.20120712" />
     <property
         name="FindbugsSrc1_3_9.home"
         value="C:\Documents and Settings\h.shoji\workspace\findbugs-1.3.9-rc1\findbugs-1.3.9-rc1"/>

@@ -1,5 +1,5 @@
 /*
- * FindAndroidStream - Findbugs Detector for Unclosed Resource of Android
+ * findbugs for android
  * Copyright (c) 2012, Hisato Shoji.
  *
  * This library is free software; you can redistribute it and/or
@@ -51,7 +51,6 @@ import edu.umd.cs.findbugs.ba.Location;
 import edu.umd.cs.findbugs.ba.ObjectTypeFactory;
 import edu.umd.cs.findbugs.ba.ResourceValueAnalysis;
 import edu.umd.cs.findbugs.ba.ResourceValueFrame;
-import edu.umd.cs.findbugs.detect.IOStreamFactory;
 import edu.umd.cs.findbugs.detect.MethodReturnValueStreamFactory;
 import edu.umd.cs.findbugs.detect.Stream;
 import edu.umd.cs.findbugs.detect.StreamEquivalenceClass;
