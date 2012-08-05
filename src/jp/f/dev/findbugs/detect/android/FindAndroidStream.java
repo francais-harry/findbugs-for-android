@@ -51,6 +51,7 @@ import edu.umd.cs.findbugs.ba.Location;
 import edu.umd.cs.findbugs.ba.ObjectTypeFactory;
 import edu.umd.cs.findbugs.ba.ResourceValueAnalysis;
 import edu.umd.cs.findbugs.ba.ResourceValueFrame;
+import edu.umd.cs.findbugs.detect.IOStreamFactory;
 import edu.umd.cs.findbugs.detect.MethodReturnValueStreamFactory;
 import edu.umd.cs.findbugs.detect.Stream;
 import edu.umd.cs.findbugs.detect.StreamEquivalenceClass;
@@ -76,14 +77,18 @@ public class FindAndroidStream extends
      */
     static final ObjectType[] streamBaseList = {
             ObjectTypeFactory.getInstance("android.database.Cursor"),
-            ObjectTypeFactory.getInstance("java.io.FileInputStream"),
-            ObjectTypeFactory.getInstance("java.io.FileOutputStream")
+            ObjectTypeFactory.getInstance("java.io.InputStream"),
+            ObjectTypeFactory.getInstance("java.io.OutputStream"),
+            ObjectTypeFactory.getInstance("android.util.JsonReader"),
+            ObjectTypeFactory.getInstance("android.util.JsonWriter"),
+            ObjectTypeFactory.getInstance("android.content.res.AssetManager"),
+            ObjectTypeFactory.getInstance("android.content.res.XmlResourceParser")
             };
 
     static {
         ArrayList<StreamFactory> streamFactoryCollection = new ArrayList<StreamFactory>();
 
-        // TODO: Need to improve Cursor sub-class handling.
+        // TODO: Need to check related methods of Cursor.
         streamFactoryCollection
                 .add(new MethodReturnValueStreamFactory(
                         "android.content.ContentResolver",
@@ -91,6 +96,7 @@ public class FindAndroidStream extends
                         "(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;",
                         "ANDROID_UNCLOSED_CURSOR"));
 
+        // File stream related of Application data.
         streamFactoryCollection.add(new MethodReturnValueStreamFactory(
                 "android.content.Context", "openFileInput",
                 "(Ljava/lang/String;)Ljava/io/FileInputStream;",
@@ -98,6 +104,59 @@ public class FindAndroidStream extends
         streamFactoryCollection.add(new MethodReturnValueStreamFactory(
                 "android.content.Context", "openFileOutput",
                 "(Ljava/lang/String;I)Ljava/io/FileOutputStream;",
+                "ANDROID_OPEN_STREAM"));
+
+        // Content Resolver related.
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.ContentResolver", "openInputStream",
+                "(Landroid/net/Uri;)Ljava/io/InputStream;",
+                "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.ContentResolver", "openOutputStream",
+                "(Landroid/net/Uri;)Ljava/io/OutputStream;",
+                "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.ContentResolver", "openOutputStream",
+                "(Landroid/net/Uri;Ljava/lang/String;)Ljava/io/OutputStream;",
+                "ANDROID_OPEN_STREAM"));
+
+        // Json related
+        streamFactoryCollection.add(new IOStreamFactory(
+                "android.util.JsonReader", new String[0], "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection.add(new IOStreamFactory(
+                "android.util.JsonWriter", new String[0], "ANDROID_OPEN_STREAM"));
+
+        // AssetManager related.
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.res.Resources", "getAssets",
+                "()Landroid/content/res/AssetManager;",
+                "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.res.AssetManager", "open",
+                "(Ljava/lang/String;)Ljava/io/InputStream;",
+                "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.res.AssetManager", "open",
+                "(Ljava/lang/String;I)Ljava/io/InputStream;",
+                "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.res.AssetManager", "openXmlResourceParser",
+                "(Ljava/lang/String;)Landroid/content/res/XmlResourceParser;",
+                "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.res.AssetManager", "openXmlResourceParser",
+                "(ILjava/lang/String;)Landroid/content/res/XmlResourceParser;",
+                "ANDROID_OPEN_STREAM"));
+
+        // File Descriptor related.
+        //TODO need to be updated(?), check related classes.
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.res.AssetFileDescriptor", "createInputStream",
+                "()Ljava/io/FileInputStream;",
+                "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.res.AssetFileDescriptor", "createOutputStream",
+                "()Ljava/io/FileOutputStream;",
                 "ANDROID_OPEN_STREAM"));
 
         streamFactoryList = streamFactoryCollection

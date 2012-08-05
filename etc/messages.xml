@@ -37,17 +37,17 @@
 	<BugCode abbrev="AUCCUR">Bad Cursor handling</BugCode>
 
 	<BugPattern type="ANDROID_OPEN_STREAM">
-		<ShortDescription>Un-closed file stream of Android
+		<ShortDescription>Un-closed stream of Android
 		</ShortDescription>
-		<LongDescription>Un-closed file stream of Android
+		<LongDescription>Un-closed stream of Android
 		</LongDescription>
 		<Details>
 <![CDATA[
-<p>File stream may not be closed. Need to be closed after use.</p>
+<p>This stream may not be closed. This can cause file descripter leak, need to be closed after use.</p>
 <p>Note that this detector is beta version</p>
 ]]>
 		</Details>
 	</BugPattern>
-	<BugCode abbrev="AOS">Bad file stream handling</BugCode>
+	<BugCode abbrev="AOS">Bad stream handling</BugCode>
 	
 </MessageCollection>
