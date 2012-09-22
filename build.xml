@@ -1,22 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
+
     <property
         name="FindBugs.home"
         value="C:\Program Files\eclipse\plugins\edu.umd.cs.findbugs.plugin.eclipse_2.0.1.20120712" />
+
     <property
-        name="FindbugsSrc1_3_9.home"
-        value="C:\Documents and Settings\h.shoji\workspace\findbugs-1.3.9-rc1\findbugs-1.3.9-rc1"/>
+        name="FindbugsSrc2_0_1.home"
+        value="C:\Documents and Settings\h.shoji\workspace\findbugs-2.0.1" />
+
     <property
-        name="FindbugsSrc2_0.home"
-        value="C:\Documents and Settings\h.shoji\workspace\findbugs-2.0.0-source\findbugs-2.0.0"/>
-    <target name="build">
-        <jar destFile="AndroidFindbugs.jar">
-            <fileset dir="bin"/>
-            <fileset dir="src"/>
-            <zipfileset dir="etc" includes="*.xml" prefix=""/>
-        </jar>
-        <copy file="AndroidFindbugs.jar" todir="${FindBugs.home}/plugin"/>
-        <copy file="AndroidFindbugs.jar" todir="${FindbugsSrc1_3_9.home}/plugin"/>
-        <copy file="AndroidFindbugs.jar" todir="${FindbugsSrc2_0.home}/plugin"/>
+        name="build.dest"
+        value="classes" />
+
+    <property
+        name="build.src"
+        value="src" />
+
+    <path id="findbugs_jar" >
+
+        <pathelement path="${FindbugsSrc2_0_1.home}/lib/bcel.jar" />
+
+        <pathelement path="${FindbugsSrc2_0_1.home}/lib/findbugs.jar" />
+    </path>
+
+    <target name="compile" >
+
+        <mkdir dir="${build.dest}" />
+
+        <javac
+            destdir="${build.dest}"
+            srcdir="${build.src}" >
+
+            <classpath refid="findbugs_jar" />
+        </javac>
     </target>
+
+    <target
+        name="jar"
+        depends="compile" >
+
+        <jar destFile="AndroidFindbugs.jar" basedir="${build.dest}">
+
+            <zipfileset
+                dir="etc"
+                includes="*.xml"
+                prefix="" />
+        </jar>
+
+        <copy
+            file="AndroidFindbugs.jar"
+            todir="${FindBugs.home}/plugin" />
+
+        <copy
+            file="AndroidFindbugs.jar"
+            todir="${FindbugsSrc2_0_1.home}/plugin" />
+    </target>
+
 </project>

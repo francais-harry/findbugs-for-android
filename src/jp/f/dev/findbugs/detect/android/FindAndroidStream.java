@@ -105,6 +105,14 @@ public class FindAndroidStream extends
                 "android.content.Context", "openFileOutput",
                 "(Ljava/lang/String;I)Ljava/io/FileOutputStream;",
                 "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.res.Resources", "openRawResource",
+                "(I)Ljava/io/InputStream;",
+                "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.content.res.Resources", "openRawResource",
+                "(ILandroid/util/TypedValue;)Ljava/io/InputStream;",
+                "ANDROID_OPEN_STREAM"));
 
         // Content Resolver related.
         streamFactoryCollection.add(new MethodReturnValueStreamFactory(

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<MessageCollection>
+<MessageCollection  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<Plugin>
 		<ShortDescription>Findbugs plugin for Android</ShortDescription>
@@ -43,7 +43,7 @@
 		</LongDescription>
 		<Details>
 <![CDATA[
-<p>This stream may not be closed. This can cause file descripter leak, need to be closed after use.</p>
+<p>This stream may not be closed. This can cause file descriptor leak, need to be closed after use.</p>
 <p>Note that this detector is beta version</p>
 ]]>
 		</Details>
