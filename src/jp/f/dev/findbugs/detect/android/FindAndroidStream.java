@@ -400,10 +400,10 @@ public class FindAndroidStream extends
             // priority.
 
             String bugType = stream.getBugType();
-            int priority = NORMAL_PRIORITY;
+            int priority = HIGH_PRIORITY;
             if (exitStatus == ResourceValueFrame.OPEN_ON_EXCEPTION_PATH) {
                 bugType += "_EXCEPTION_PATH";
-                priority = LOW_PRIORITY;
+                priority = NORMAL_PRIORITY;
             }
             if (DEBUG) { System.out.println("FindAndroidStream inspectResult add stream: " + stream); }
 

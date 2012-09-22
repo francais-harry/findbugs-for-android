@@ -40,7 +40,9 @@
         name="jar"
         depends="compile" >
 
-        <jar destFile="AndroidFindbugs.jar" basedir="${build.dest}">
+        <jar
+            basedir="${build.dest}"
+            destFile="AndroidFindbugs.jar" >
 
             <zipfileset
                 dir="etc"
@@ -55,6 +57,11 @@
         <copy
             file="AndroidFindbugs.jar"
             todir="${FindbugsSrc2_0_1.home}/plugin" />
+    </target>
+
+    <target name="clean" >
+
+        <delete dir="${build.dest}" />
     </target>
 
 </project>
