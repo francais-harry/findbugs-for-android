@@ -3,11 +3,11 @@
 
     <property
         name="FindBugs.home"
-        value="C:\Program Files\eclipse\plugins\edu.umd.cs.findbugs.plugin.eclipse_2.0.1.20120712" />
+        value="C:\Users\ひさと\.eclipse\org.eclipse.platform_4.3.0_248562372_win32_win32_x86_64\plugins\edu.umd.cs.findbugs.plugin.eclipse_2.0.3.20131122-15027" />
 
     <property
-        name="FindbugsSrc2_0_1.home"
-        value="C:\Documents and Settings\h.shoji\workspace\findbugs-2.0.1" />
+        name="FindbugsSrc2_0_3.home"
+        value="C:\Users\ひさと\workspace\findbugs-2.0.3" />
 
     <property
         name="build.dest"
@@ -19,9 +19,9 @@
 
     <path id="findbugs_jar" >
 
-        <pathelement path="${FindbugsSrc2_0_1.home}/lib/bcel.jar" />
+        <pathelement path="${FindbugsSrc2_0_3.home}/lib/bcel.jar" />
 
-        <pathelement path="${FindbugsSrc2_0_1.home}/lib/findbugs.jar" />
+        <pathelement path="${FindbugsSrc2_0_3.home}/lib/findbugs.jar" />
     </path>
 
     <target name="compile" >
@@ -56,7 +56,7 @@
 
         <copy
             file="AndroidFindbugs.jar"
-            todir="${FindbugsSrc2_0_1.home}/plugin" />
+            todir="${FindbugsSrc2_0_3.home}/plugin" />
     </target>
 
     <target name="clean" >
