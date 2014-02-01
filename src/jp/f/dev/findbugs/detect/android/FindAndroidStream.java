@@ -101,7 +101,8 @@ public class FindAndroidStream extends
             ObjectTypeFactory.getInstance("android.util.JsonReader"),
             ObjectTypeFactory.getInstance("android.util.JsonWriter"),
 //            ObjectTypeFactory.getInstance("android.content.res.AssetManager"),
-            ObjectTypeFactory.getInstance("android.content.res.XmlResourceParser")
+            ObjectTypeFactory.getInstance("android.content.res.XmlResourceParser"),
+            ObjectTypeFactory.getInstance("android.os.ParcelFileDescriptor")
             };
 
     static {
@@ -113,6 +114,12 @@ public class FindAndroidStream extends
                         "android.content.ContentResolver",
                         "query",
                         "(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;",
+                        "ANDROID_UNCLOSED_CURSOR"));
+        streamFactoryCollection
+                .add(new MethodReturnValueStreamFactory(
+                        "android.content.ContentResolver",
+                        "query",
+                        "(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Landroid/os/CancellationSignal;)Landroid/database/Cursor;",
                         "ANDROID_UNCLOSED_CURSOR"));
 
         // File stream related of Application data.
@@ -146,6 +153,18 @@ public class FindAndroidStream extends
                 "android.content.ContentResolver", "openOutputStream",
                 "(Landroid/net/Uri;Ljava/lang/String;)Ljava/io/OutputStream;",
                 "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection
+                .add(new MethodReturnValueStreamFactory(
+                        "android.content.ContentResolver",
+                        "openFileDescriptor",
+                        "(Landroid/net/Uri;Ljava/lang/String;)Landroid/os/ParcelFileDescriptor;",
+                        "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection
+                .add(new MethodReturnValueStreamFactory(
+                        "android.content.ContentResolver",
+                        "openFileDescriptor",
+                        "(Landroid/net/Uri;Ljava/lang/String;Landroid/os/CancellationSignal;)Landroid/os/ParcelFileDescriptor;",
+                        "ANDROID_OPEN_STREAM"));
 
         // Json related
         streamFactoryCollection.add(new IOStreamFactory(
@@ -176,7 +195,6 @@ public class FindAndroidStream extends
                 "ANDROID_OPEN_STREAM"));
 
         // File Descriptor related.
-        //TODO need to be updated(?), check related classes.
         streamFactoryCollection.add(new MethodReturnValueStreamFactory(
                 "android.content.res.AssetFileDescriptor", "createInputStream",
                 "()Ljava/io/FileInputStream;",
@@ -185,6 +203,17 @@ public class FindAndroidStream extends
                 "android.content.res.AssetFileDescriptor", "createOutputStream",
                 "()Ljava/io/FileOutputStream;",
                 "ANDROID_OPEN_STREAM"));
+
+        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+                "android.os.ParcelFileDescriptor", "open",
+                "(Ljava/io/File;I)Landroid/os/ParcelFileDescriptor;",
+                "ANDROID_OPEN_STREAM"));
+        streamFactoryCollection
+                .add(new MethodReturnValueStreamFactory(
+                        "android.os.ParcelFileDescriptor",
+                        "open",
+                        "(Ljava/io/File;ILandroid/os/Handler;Landroid/os/ParcelFileDescriptor$OnCloseListener;)Landroid/os/ParcelFileDescriptor;",
+                        "ANDROID_OPEN_STREAM"));
 
         streamFactoryList = streamFactoryCollection
                 .toArray(new StreamFactory[streamFactoryCollection.size()]);
