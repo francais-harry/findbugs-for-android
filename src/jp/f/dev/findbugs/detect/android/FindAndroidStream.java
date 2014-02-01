@@ -100,7 +100,7 @@ public class FindAndroidStream extends
             ObjectTypeFactory.getInstance("java.io.OutputStream"),
             ObjectTypeFactory.getInstance("android.util.JsonReader"),
             ObjectTypeFactory.getInstance("android.util.JsonWriter"),
-            ObjectTypeFactory.getInstance("android.content.res.AssetManager"),
+//            ObjectTypeFactory.getInstance("android.content.res.AssetManager"),
             ObjectTypeFactory.getInstance("android.content.res.XmlResourceParser")
             };
 
@@ -154,10 +154,10 @@ public class FindAndroidStream extends
                 "android.util.JsonWriter", new String[0], "ANDROID_OPEN_STREAM"));
 
         // AssetManager related.
-        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
-                "android.content.res.Resources", "getAssets",
-                "()Landroid/content/res/AssetManager;",
-                "ANDROID_OPEN_STREAM"));
+//        streamFactoryCollection.add(new MethodReturnValueStreamFactory(
+//                "android.content.res.Resources", "getAssets",
+//                "()Landroid/content/res/AssetManager;",
+//                "ANDROID_OPEN_STREAM"));
         streamFactoryCollection.add(new MethodReturnValueStreamFactory(
                 "android.content.res.AssetManager", "open",
                 "(Ljava/lang/String;)Ljava/io/InputStream;",
